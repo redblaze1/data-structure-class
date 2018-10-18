@@ -11,5 +11,6 @@ fun main(args: Array<String>) {
     val d = a.add(b)
     val e = a.multiply(b)
     d.print()
+    println()
     e.print()
 }
