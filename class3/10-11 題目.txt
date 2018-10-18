@@ -1,0 +1,29 @@
+實習題目10/11										
+Problem 1	將olist建好，測試下列操作：									
+	a.insert(0, 3); //在0位置插入3					a.del(2);				
+	a.insert(0, 4);					a.insert(2, 99);				
+	a.insert(0, 5);					a.insert(0, 88);				
+	a.insert(1, 9);					a.readAll();				
+	cout << a.read(2);					依序測試 average(), sum(), sort(), Length()				
+	依序測試 average(), sum(), sort(), Length()					a.readAll();				
+	a.readAll();									
+										
+										
+Problem 2	將Polynomial class 寫完整(乘法除外)，測試之。									
+	A(x) = 	3x^8 + 5x^2 + 6x + 7								
+	B(x) = 	7x^8 + 5x^2 + 9								
+	C(x) = A(x) + B(x)									
+	cout << A.eval(1.0);		 // 應該是21							
+	cout << B.eval(2.0);		 // 應該是	1821						
+	cout << C.LeadExp();									
+	cout << C.eval(100.0);									
+			(Hint)							
+				3x^4 + 5x^2 + 6x + 7						
+				0	1	2	3	terms=4		
+			termArray	3	5	6	7			
+				4	2	1	0			
+				當計算 eval(val) 的時候  主迴圈：						
+				for(j = 0; j < terms; j++) {						
+				  sum += termArray[j].coef * (val^termArray[j].exp);						
+				}			by pow()			
+										

@@ -22,7 +22,7 @@ int main(){
     srand(time(NULL));
     int a[1000];
     for(int i=0;i<1000;i++){
-        a[i]= rand()%100000;
+        a[i]= rand()%10000;
     }
     trushbubble(a,1000);
     for(int i=0;i<1000;i++)
