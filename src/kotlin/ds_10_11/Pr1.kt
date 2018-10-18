@@ -1,15 +1,15 @@
 package ds_10_11
 
 fun main(args: Array<String>) {
-    val a = Olist<Int>()
+    val a = Olist()
     a.insert(0, 3)
     a.insert(0, 4)
     a.insert(0, 5)
     a.insert(1, 9)
     print(a.read(2))
     with(a) {
-//        average()
-//        sum()
+        average()
+        sum()
         sort()
         length
     }
@@ -19,8 +19,8 @@ fun main(args: Array<String>) {
     a.insert(0, 88)
     a.readAll()
     with(a) {
-//        average()
-//        sum()
+        average()
+        sum()
         sort()
         length
     }
