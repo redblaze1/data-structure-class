@@ -281,7 +281,7 @@ class ChainList<T> : Iterable<T> {
         first = last.also { last = first }
     }
 
-    fun Concatenate(other: ChainList<T>) {
+    fun concatenate(other: ChainList<T>) {
         plusAssign(other)
     }
 
