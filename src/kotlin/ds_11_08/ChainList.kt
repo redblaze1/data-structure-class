@@ -65,7 +65,7 @@ class ChainList<T> : Iterable<T> {
 
     class ChainIterator<T> internal constructor(private var now: ChainNode<T>?) : Iterator<T> {
 
-        override fun hasNext(): Boolean = now?.link != null
+        override fun hasNext(): Boolean = now != null
 
         override fun next(): T = now?.value.also { now = now?.link } ?: throw Throwable("No next")
 
@@ -263,6 +263,8 @@ class ChainList<T> : Iterable<T> {
         return pointer.value.also { pointer.value = element }
     }
 
+    override fun toString(): String = iterator().asSequence().toList().toString()
+
 //    override fun subList(fromIndex: Int, toIndex: Int): MutableList<T> {
 //        TO DO("not implemented") //To change body of created functions use File | Settings | File Templates.
 //    }
@@ -271,10 +273,25 @@ class ChainList<T> : Iterable<T> {
         var pre: ChainNode<T>? = null
         var now: ChainNode<T>? = first
         while (now != null) {
+            val next = now.link
             now.link = pre
             pre = now
-            now = now.link
+            now = next
         }
         first = last.also { last = first }
+    }
+
+    fun Concatenate(other: ChainList<T>) {
+        plusAssign(other)
+    }
+
+    operator fun plusAssign(other :ChainList<T>) {
+        if (this.isEmpty()) {
+            first = other.first
+            last = other.last
+        } else {
+            last!!.link = other.first
+            last = other.last
+        }
     }
 }
