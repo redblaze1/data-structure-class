@@ -1,0 +1,33 @@
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+#include <stdio.h>
+
+using namespace std;
+
+void Permutations (int *a, const int k, const int m)
+{ // 產生a[k], …, a[m] 的所有排列
+	int i;
+	char t;
+	if (k == m) //輸出排列
+	{
+		for (i =0; i <=m; i++) printf("%d  "  , a[i]);
+		printf("\n");
+	}
+	else // a [k : m] 還有超過一種以上的排列，遞迴產生它們
+		for (i = k ; i <= m ; i++)
+		{
+			t = a[k]; a[k] = a[i]; a[i] = t;
+			Permutations(a, k+1, m) ;
+			t = a[k]; a[k] = a[i]; a[i] = t;
+		}
+}
+
+int main() {
+	int index[4];
+	index[0] = 0; index[1] = 1; index[2] = 2; index[3] = 3;
+	Permutations(index, 0, 3);
+	getchar();
+}
+
+

@@ -1,0 +1,9 @@
+void hanoi(int n, char A, char B, char C) {
+	if (n == 1)
+		cout << "move one from " << A << " to " << B << endl;
+	else {
+		hanoi(n - 1, A, C, B);
+		cout << "move one from " << A << " to " << B << endl;
+		hanoi(n - 1, C, B, A);
+	}
+}

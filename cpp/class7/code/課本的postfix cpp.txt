@@ -1,0 +1,56 @@
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+#include <stdio.h>
+
+using namespace std;
+
+
+
+//................
+
+//   這裡放stack程式
+
+// ...............
+
+int isp(char c)  {
+	if(c == '*' || c == '/') return 1;
+	if(c == '+' || c == '-') return 2;
+	if(c == '(') return 3;
+	if(c == '#') return 4;
+}
+
+int icp(char c)  {
+	if(c == '*' || c == '/') return 1;
+	if(c == '+' || c == '-') return 2;
+	if(c == '(') return 0;
+}
+
+void Postfix(Expression e)	
+{// 把中置運算式e轉成後置運算式並輸出。NextToken就跟函式Eval（程式3.18）裡	
+ // 的一樣。假設在e裡的最後一個符號是’#’。另外，’#’也用在堆疊的底部。	
+    Stack<char> stack(100); // 初始化stack	
+    stack.Push('#');	
+    for (p = 0, char x = e[p++]; x != '#'; x = e[p++])	 {
+
+        if (x是一個運算元) cout << x;	
+        else if (x ==’)’)	
+            {// 從堆疊中彈出直到出現’(‘	
+                for (;stack.Top( ) != ‘(‘; stack.Pop( ))	
+                    cout << stack.Top( );	
+                stack.Pop( ); // 從堆疊中彈出 ’(‘	
+            }	
+        else { // x是一個運算子	
+            for (; isp(stack.Top( )) <= icp(x); stack.Pop( ))	
+                cout << stack.Top( );	
+            stack.Push(x);	
+        }	
+	
+    // 已經到了一個運算式的結尾；清空堆疊	
+    for (; !stack.IsEmpty( ); cout << stack.Top( ), stack.Pop( ));	
+    cout << endl;	
+}	
+
+int main() {
+	
+}
