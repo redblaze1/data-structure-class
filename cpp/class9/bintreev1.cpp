@@ -6,6 +6,100 @@
 
 using namespace std;
 
+#include <iostream>			
+#include <ctime>			
+#include <cstdlib>			
+#include <stdio.h>			
+
+using namespace std;
+
+template < class T >
+class Bag
+{
+public:
+	Bag(int bagCapacity = 10);
+	~Bag();
+
+	int Size() const;
+	bool IsEmpty() const;
+	T& Element() const;
+
+	void Push(const T&);
+	void Pop();
+	void Pop(T *);
+	T Top();
+
+private:
+	T *array;
+	int capacity;   // �̤j�e�q 		
+	int top;
+};
+
+
+template < class T >
+Bag < T >::Bag(int bagCapacity) : capacity(bagCapacity) {
+	if (capacity < 1) throw "Capacity must be > 0";
+	array = new T[capacity];
+	top = -1;
+}
+
+template < class T >
+Bag <T>::~Bag() { delete[] array; }
+
+template < class T >
+void Bag <T>::Push(const T& x) {
+	if (capacity == top + 1)
+	{
+		//ChangeSize1D (array, capacity, 2 * capacity);	
+		capacity *= 2;
+	}
+	array[++top] = x;
+}
+
+template <class T>
+bool Bag<T> ::IsEmpty() const {
+	if (top == -1) return(true);
+	else return(false);
+}
+
+template <class T>
+T Bag<T> ::Top() {
+	return array[top];
+}
+
+template < class T >
+void Bag < T >::Pop(T *x) {
+	if (IsEmpty()) throw "Bag is empty, cannot delete";
+	int deletePos = top / 2;
+	//copy (array + deletePos + 1, ayyay + top + 1, array + deletePos);		
+	// �ϰ}�C���
+	*x = array[top];
+	array[top--].~T(); // T���Ѻc�l		
+}
+
+template < class T >
+void Bag < T >::Pop() {
+	if (IsEmpty()) throw "Bag is empty, cannot delete";
+	int deletePos = top / 2;
+	//copy (array + deletePos + 1, ayyay + top + 1, array + deletePos);		
+	// �ϰ}�C���
+	array[top--].~T(); // T���Ѻc�l		
+}
+
+// ...............			
+template <class T>
+class Stack : public Bag<T> {
+public:
+	Stack(int cap);
+
+};
+
+template <class T>
+Stack<T>::Stack(int cap) {
+	Bag<T>();
+}
+
+
 
 // ......queue 			
 template <class T>
@@ -58,10 +152,12 @@ bool Queue<T>::isEmpty() {
 
 
 template <class T> class Tree; //前向宣告
+// template <class T> class Stack;		
 
 template <class T>
 class TreeNode {
 	friend class Tree <T>;
+	friend class Stack <T>;
 	TreeNode(T e);
 private:
 	T data;
@@ -75,6 +171,39 @@ TreeNode<T>::TreeNode(T e) {
 		leftChild = rightChild = 0;
 }
 
+// template <class T>
+// class Stack{
+// public:
+
+// 	void push(int i, TreeNode<T> *v) {
+// 		/* move rear portion */
+// 		for (int j = n - 1; j >= i; j--) a[j + 1] = a[j];
+// 		/* insert it */
+// 		a[i] = v;
+// 		n++;
+// 	}
+// 	void * pop(){
+// 		if(n!=0){
+// 			n--;
+// 		} else {
+// 			cout << "裡面沒東西,87" << endl;
+// 			return 0;
+// 		}
+// 		for(int i=n,now=0;now<i;now++) a[now] = a[now+1];
+// 	}
+// 	bool isemp(){
+// 		if(n==0)
+// 		return true;
+// 		else
+// 		return false;
+// 	}
+// 	TreeNode<T> * Top(){
+// 		return a[0];
+// 	}
+// private:
+// 	int n=0;
+// 	TreeNode <T> * a[100];
+// };
 template <class T>
 class Tree{
 public:
@@ -83,6 +212,7 @@ public:
 	void buildTreea();
 	void buildTreeb();
 	void Inorder(TreeNode<T> *p);
+	void NonrecInorder();
 	void Preorder(TreeNode<T>*);
 	void Levelorder(TreeNode<T> *p);
 	void Plot();
@@ -217,14 +347,31 @@ void Tree<T>::buildTreeb() {
 	root->rightChild->leftChild->rightChild = new TreeNode<T>('q');
 }
 
+template <class T>		
+void Tree <T>::NonrecInorder(){		
+	Stack < TreeNode < T > * > s;
+	TreeNode < T > *currentNode = root;		
+	while(1) {		
+		while (currentNode) {	
+			s.Push(currentNode);
+			currentNode = currentNode->leftChild;
+		}	
+		if (s.IsEmpty()) return;	
+		currentNode = s.Top();	
+		s.Pop();
+		cout << currentNode->data << " ";	
+		currentNode = currentNode->rightChild;	
+	}
+}
+
 int main() {
 	cout << "tree1: " << endl;
 	Tree<char> tree1;
 	tree1.buildTreea();
-	cout << "Levelorder: ";
-	tree1.Levelorder(tree1.returnRoot());
-	// cout << "\nPreorder: ";
-	// tree1.Preorder(tree1.returnRoot());
+	// cout << "Levelorder: ";
+	// tree1.Levelorder(tree1.returnRoot());
+	cout << "Inorder: ";
+	tree1.NonrecInorder();
 
 	cout << " \nplot the tree: " << endl;
 	tree1.Plot();
