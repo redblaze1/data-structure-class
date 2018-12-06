@@ -57,7 +57,7 @@ bool Queue<T>::isEmpty() {
 
 
 
-template <class T> class Tree; //�e�V�ŧi			
+template <class T> class Tree; //前向宣告
 
 template <class T>
 class TreeNode {
@@ -94,7 +94,7 @@ private:
 
 template <class T>
 void Tree <T>::Levelorder(TreeNode<T> *currentNode)
-{// �H���Ǥ覡���X�G����			
+{// 以階序方式走訪二元樹
 	Queue < TreeNode <T>*> q(200);
 	while (currentNode) {
 		cout << currentNode->data << "\t";
@@ -108,7 +108,7 @@ void Tree <T>::Levelorder(TreeNode<T> *currentNode)
 
 template <class T>
 void Tree <T>::Inorder(TreeNode <T> *currentNode)
-{ // �D�{�����X��ڬ�currentNode���l��			
+{ // 主程式走訪樹根為currentNode的子樹
 	if (currentNode != NULL) {
 		Inorder(currentNode->leftChild);
 		cout << currentNode->data << "\t";
@@ -118,7 +118,7 @@ void Tree <T>::Inorder(TreeNode <T> *currentNode)
 
 template <class T>
 void Tree <T>::Preorder(TreeNode <T> *currentNode)
-{ // �D�{�����X��ڬ�currentNode���l��			
+{ // 主程式走訪樹根為currentNode的子樹
 	if (currentNode != NULL) {
 		cout << currentNode->data << "\t";
 		Inorder(currentNode->leftChild);
